@@ -2,7 +2,7 @@ FROM golang:1.23-bookworm AS builder
 
 RUN mkdir /sln
 
-COPY ./src/spot-hinta-influxdb/ /sln
+COPY ./src/ /sln
 
 WORKDIR /sln
 

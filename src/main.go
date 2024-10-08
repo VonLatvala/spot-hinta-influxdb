@@ -1,6 +1,6 @@
 package main
 
-import "github.com/VonLatvala/spot-hinta-influxdb/spothintainfluxdb"
+import "github.com/VonLatvala/spot-hinta-influxdb/solution"
 
 
 func main() {
