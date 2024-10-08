@@ -1,0 +1,14 @@
+#!/bin/bash
+docker run --rm -it \
+    -e EXEC_INTERVAL_MINUTES=5 \
+    -e INFLUX_DATABASE=spot_price \
+    -e INFLUX_PASSWORD='secret' \
+    -e INFLUX_PORT=8086 \
+    -e INFLUX_PROTO=http \
+    -e INFLUX_USERNAME=system \
+    -e UPSTREAM_API_FQDN=api.spot-hinta.fi \
+    -e UPSTREAM_API_PROTO=https \
+    -e INFLUX_HOST=db.internal.domain.tld \
+    -v ./src:/sln \
+    --entrypoint go \
+    golang:1.23-bookworm run -C /sln .

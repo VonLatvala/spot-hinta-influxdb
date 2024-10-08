@@ -1,0 +1,11 @@
+#!/bin/bash
+EXEC_INTERVAL_MINUTES=5 \
+    INFLUX_DATABASE=spot_price \
+    INFLUX_PASSWORD='secret' \
+    INFLUX_PORT=8086 \
+    INFLUX_PROTO=http \
+    INFLUX_USERNAME=system \
+    UPSTREAM_API_FQDN=api.spot-hinta.fi \
+    UPSTREAM_API_PROTO=https \
+    INFLUX_HOST=db.internal.domain.tld \
+    go run -C ./src .
