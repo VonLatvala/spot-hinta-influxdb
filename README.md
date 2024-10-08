@@ -1,4 +1,4 @@
-# spot-hinta-influx
+# spot-hinta-influxdb
 
 ## What is this
 
@@ -87,7 +87,7 @@ PWD=spot-hinta-influxdb
 * Azure function terraforms
 * Systemd unit
 * Ansible deployment
-* Sonar to pipeline
+* Sonar to CI pipeline
 * Tests (tirsk)
 * More measurements (ATM only exporting `/today` endpoint, as that's all I'm interested in)
 
