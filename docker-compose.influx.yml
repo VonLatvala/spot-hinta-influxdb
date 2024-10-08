@@ -1,6 +1,6 @@
 version: "3.8"
 
-# standalone
+# demo with itegrated influx
 services:
   spot-hinta-influxdb:
     image: vonlatvala/spot-hinta-influxdb
@@ -14,5 +14,18 @@ services:
       - INFLUX_USERNAME=system
       - UPSTREAM_API_FQDN=api.spot-hinta.fi
       - UPSTREAM_API_PROTO=https
-      - INFLUX_HOST=db.internal.domain.tld
+      - INFLUX_HOST=influxdb
     restart: unless-stopped
+    depends_on:
+      - influxdb
+  influxdb:
+    image: influxdb:1.8
+    environment:
+      - INFLUXDB_DB=spot_price
+      - INFLUXDB_ADMIN_USER=system
+      - INFLUXDB_ADMIN_PASSWORD=secret
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+
+volumes:
+  influxdb-storage:
