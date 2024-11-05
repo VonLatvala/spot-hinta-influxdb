@@ -15,6 +15,7 @@ services:
       - UPSTREAM_API_FQDN=api.spot-hinta.fi
       - UPSTREAM_API_PROTO=https
       - INFLUX_HOST=influxdb
+      - INCLUDE_TOMORROW=true
     restart: unless-stopped
     depends_on:
       - influxdb
