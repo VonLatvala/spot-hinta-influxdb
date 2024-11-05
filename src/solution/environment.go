@@ -20,6 +20,7 @@ func checkEnv(logger *log.Logger) {
 		ENV_UPSTREAM_API_PROTO,
 		ENV_UPSTREAM_API_FQDN,
 		ENV_EXEC_INTERVAL_MINUTES,
+		ENV_INCLUDE_TOMORROW,
 	}
 	var missingFields []string;
 	for _, variable := range requiredVariables {
@@ -47,6 +48,10 @@ func constructRuntimeConfig(logger *log.Logger) RuntimeConfig {
 	if err != nil {
 		logger.Fatal(err)
 	}
+	includeTomorrow, err := strconv.ParseBool(os.Getenv(ENV_INCLUDE_TOMORROW))
+	if err != nil {
+		logger.Fatal(err)
+	}
 	var runtimeConfig = RuntimeConfig{
 		influxDatabaseConfig: InfluxDatabaseConfig{
 			proto: os.Getenv(ENV_INFLUX_PROTO),
@@ -60,6 +65,7 @@ func constructRuntimeConfig(logger *log.Logger) RuntimeConfig {
 			fqdn: os.Getenv(ENV_UPSTREAM_API_FQDN),
 		},
 		execIntervalMinutes: execIntervalMinutes,
+		includeTomorrow: includeTomorrow,
 	}
 	logger.Println("Constructed runtime config")
 	return runtimeConfig

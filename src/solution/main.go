@@ -32,16 +32,25 @@ func Run(logger *log.Logger, runtimeConfig RuntimeConfig) {
 	}
 }
 
+type QueryFunc = func(*log.Logger, UpstreamApiConfig) HourParamsResponse
+
 func tick(logger *log.Logger, runtimeConfig RuntimeConfig) {
 	var influxClient = connectInflux(logger, runtimeConfig.influxDatabaseConfig)
 	defer influxClient.Close()
 
-	logger.Println("Querying upstream API for today's hourly parameters")
-	today := queryToday(logger, runtimeConfig.upstreamApiConfig)
+	var queryFunc QueryFunc
+
+	if(runtimeConfig.includeTomorrow) {
+		queryFunc = queryTodayAndDayForward
+	} else {
+		queryFunc = queryToday
+	}
+	logger.Println("Querying upstream API for hourly parameters")
+	hourlyParams := queryFunc(logger, runtimeConfig.upstreamApiConfig)
 
 	logger.Printf("Inserting %d hourly parameters to InfluxDB database %s at %s:%d\n",
-	len(today), runtimeConfig.influxDatabaseConfig.name,
-	runtimeConfig.influxDatabaseConfig.host, runtimeConfig.influxDatabaseConfig.port)
-	insertTodayInflux(logger, influxClient, runtimeConfig.influxDatabaseConfig, today)
-	logger.Printf("Successfully inserted %d records\n", len(today))
+		len(hourlyParams), runtimeConfig.influxDatabaseConfig.name,
+		runtimeConfig.influxDatabaseConfig.host, runtimeConfig.influxDatabaseConfig.port)
+	insertParamsInflux(logger, influxClient, runtimeConfig.influxDatabaseConfig, hourlyParams)
+	logger.Printf("Successfully inserted %d records\n", len(hourlyParams))
 }

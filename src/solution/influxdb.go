@@ -20,7 +20,7 @@ func connectInflux(logger *log.Logger, influxDatabaseConfig InfluxDatabaseConfig
 	return influxClient
 }
 
-func insertTodayInflux(logger *log.Logger, influxClient client.Client, influxDatabaseConfig InfluxDatabaseConfig, todayResponse TodayResponse) {
+func insertParamsInflux(logger *log.Logger, influxClient client.Client, influxDatabaseConfig InfluxDatabaseConfig, params HourParamsResponse) {
 	bp, err := client.NewBatchPoints(client.BatchPointsConfig{
 		Database: influxDatabaseConfig.name,
 		Precision: influxMeasurementPrecision,
@@ -28,7 +28,7 @@ func insertTodayInflux(logger *log.Logger, influxClient client.Client, influxDat
 	if err != nil {
 		logger.Fatal(err)
 	}
-	for _, hourParams := range todayResponse {
+	for _, hourParams := range params {
 		tags := map[string]string{}
 		fields := map[string]interface{}{
 			influxMeasurementRankField: hourParams.Rank,

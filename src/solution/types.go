@@ -21,12 +21,15 @@ func (hourParams HourParams) String() string {
 	)
 }
 
-type TodayResponse []HourParams
+type HourParamsResponse []HourParams
+type TodayResponse = HourParamsResponse
+// Alias as this is just a longer version
+type TodayAndDayForwardResponse = HourParamsResponse
 
-func (todayResp TodayResponse) String() string {
+func (hourParamsResp HourParamsResponse) String() string {
 	return strings.Join(
 		Map(
-			todayResp,
+			hourParamsResp,
 			func(hourParams HourParams) string {
 				return hourParams.String()
 			},
@@ -53,4 +56,5 @@ type RuntimeConfig struct {
 	influxDatabaseConfig InfluxDatabaseConfig
 	upstreamApiConfig UpstreamApiConfig
 	execIntervalMinutes int
+	includeTomorrow bool
 }

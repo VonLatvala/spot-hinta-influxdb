@@ -4,6 +4,7 @@ const solutionName = "spot-hinta-influxdb"
 const bootMessage = "Initializing spot-hinta influxdb integration"
 
 const todayEndpoint = "today"
+const todayAndDayForwardEndpoint = "todayAndDayForward"
 
 const influxMeasurementRankField = "rank"
 const influxMeasurementPriceNoTaxField = "price_no_tax"
@@ -20,3 +21,4 @@ const ENV_INFLUX_PASSWORD = "INFLUX_PASSWORD"
 const ENV_UPSTREAM_API_PROTO = "UPSTREAM_API_PROTO"
 const ENV_UPSTREAM_API_FQDN = "UPSTREAM_API_FQDN"
 const ENV_EXEC_INTERVAL_MINUTES = "EXEC_INTERVAL_MINUTES"
+const ENV_INCLUDE_TOMORROW = "INCLUDE_TOMORROW"
