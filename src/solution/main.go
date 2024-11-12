@@ -28,7 +28,7 @@ func Run(logger *log.Logger, runtimeConfig RuntimeConfig) {
 		}
 	}()
 	for true{
-		time.Sleep(1)
+		time.Sleep(1 * time.Second)
 	}
 }
 
