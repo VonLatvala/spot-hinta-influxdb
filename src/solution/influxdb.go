@@ -39,6 +39,7 @@ func insertParamsInflux(logger *log.Logger, influxClient client.Client, influxDa
 		if err != nil {
 			logger.Fatal(err)
 		}
+		logger.Printf( "Creating point at %s with price %f€/kWh (no tax %f€/kWh)", datetime.Format(time.RFC3339), hourParams.PriceWithTax, hourParams.PriceNoTax)
 		pt, err := client.NewPoint(influxMeasurementSpotPrice, tags, fields, datetime)
 		if err != nil {
 			logger.Fatal(err)
