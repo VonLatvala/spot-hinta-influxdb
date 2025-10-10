@@ -10,7 +10,7 @@ const influxMeasurementRankField = "rank"
 const influxMeasurementPriceNoTaxField = "price_no_tax"
 const influxMeasurementPriceWithTaxField = "price_with_tax"
 const influxMeasurementSpotPrice = "spot_price"
-const influxMeasurementPrecision = "h"
+const influxMeasurementPrecision = "m"
 
 const ENV_INFLUX_PROTO = "INFLUX_PROTO"
 const ENV_INFLUX_HOST = "INFLUX_HOST"
